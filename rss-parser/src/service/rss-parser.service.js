@@ -14,14 +14,14 @@ exports.getRssFeedTemplate = async (req, res) => {
   const parser = new XMLParser({
     ignoreAttributes: false,
   });
-  console.log('proxied in rss');
+
   const feed = await axios.get(RSS_URL);
   const feedParsed = parser.parse(feed.data);
   const { item: jobList } = feedParsed.rss.channel;
   const response = getTitleAndLocation(jobList);
   await saveTempCache({
     key: 'rss_feed',
-    seconds: 300,
+    seconds: 300 * 6,
     value: response,
   });
 
