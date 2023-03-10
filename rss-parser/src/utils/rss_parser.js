@@ -1,24 +1,26 @@
 /**
- * Parses location using Regex.
+ * Gets the title and location of the items and sort the list with the respect for location.
  *
- * @param {string} content Content of the RSS feed item.
- *
- * @returns {string} Location.
- */
-const parseLocation = (content) => {
-  const locationRegex = /\nJob Location:\n(.*)\n/;
-  const matched = content.match(locationRegex);
-  return matched ? matched[1] : '';
-};
-
-/**
- * Parse the RSS feed and return the title and location.
  * @param {Array.<object>} itemList
  *
  * @returns {object} Title and location.
  */
-exports.getTitleAndLocation = (itemList) =>
-  itemList.map((item) => ({
+exports.getTitleAndLocation = (itemList) => {
+  const data = itemList.map((item) => ({
     title: item.title,
-    location: parseLocation(item.contentSnippet),
+    location: `${item.city} , ${item.country}`,
   }));
+
+  return data.sort((a, b) => {
+    const locationA = a.location.toUpperCase();
+    const locationB = b.location.toUpperCase();
+
+    if (locationA < locationB) {
+      return -1;
+    }
+    if (locationA > locationB) {
+      return 1;
+    }
+    return 0;
+  });
+};

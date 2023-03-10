@@ -1,5 +1,7 @@
-const Parser = require('rss-parser');
-const {getTitleAndLocation} = require('../utils/rss_parser');
+const { XMLParser } = require('fast-xml-parser');
+const axios = require('axios');
+const { getTitleAndLocation } = require('../utils/rss_parser');
+const { saveTempCache } = require('../utils/redis');
 
 /**
  * Render rss feed template.
@@ -9,11 +11,19 @@ const {getTitleAndLocation} = require('../utils/rss_parser');
  */
 exports.getRssFeedTemplate = async (req, res) => {
   const { RSS_URL } = process.env;
-  const parser = new Parser();
-  console.time('Time to parse RSS feed:')
-  const feed = await parser.parseURL(RSS_URL);
-  console.timeEnd('Time to parse RSS feed:')
-  res.send(getTitleAndLocation(feed.items));
-  // res.send(jobList);
-  // res.render('rss-feed.template.js', { feed });
+  const parser = new XMLParser({
+    ignoreAttributes: false,
+  });
+  console.log('proxied in rss');
+  const feed = await axios.get(RSS_URL);
+  const feedParsed = parser.parse(feed.data);
+  const { item: jobList } = feedParsed.rss.channel;
+  const response = getTitleAndLocation(jobList);
+  await saveTempCache({
+    key: 'rss_feed',
+    seconds: 300,
+    value: response,
+  });
+
+  res.render('job-rss', { jobList: response });
 };

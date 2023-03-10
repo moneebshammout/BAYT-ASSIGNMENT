@@ -1,0 +1,22 @@
+<%- include("./include/header.ejs") %>
+<h1>Job List</h1>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Job</th>
+      <th scope="col">Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% jobList.forEach(job=> {%>
+    <tr>
+      <td scope="row"><%=job.title%></td>
+      <td scope="row"><%=job.location%></td>
+    </tr>
+
+    <% }); %>
+  </tbody>
+</table>
+
+<%- include("./include/footer.ejs") %>
