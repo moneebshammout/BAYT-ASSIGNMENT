@@ -8,7 +8,7 @@
 exports.getTitleAndLocation = (itemList) => {
   const data = itemList.map((item) => ({
     title: item.title,
-    location: `${item.city} , ${item.country}`,
+    location: item.city ? `${item.city} , ${item.country}` : item.country,
   }));
 
   return data.sort((a, b) => {

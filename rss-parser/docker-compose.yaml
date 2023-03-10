@@ -19,11 +19,12 @@ services:
     networks:
       - app-network
     ports:
-      - 3000:3000
+      - 4000:4000
     environment:
       - NODE_ENV=production
-      - PORT=3000
+      - PORT=4000
       - REDIS_HOST=node_redis
+      - RSS_URL=https://www.rotanacareers.com/rss/all-rss.xml/
     depends_on:
       - node_redis
 

@@ -46,11 +46,11 @@ proc reverseProcedure {str} {
 ####################  test cases  ####################
 
 
-puts "Sort Procedure test"
+puts "Sort Procedure test \n"
 puts [sortList {2 4 8 5 6 7 3 3 2 0}]
 puts [sortList {10 9 8 7 6 5 4 3 2 1}]
 
-puts "Reverse Procedure test"
+puts "\nReverse Procedure test\n"
 puts [reverseProcedure "Hello World"]
 puts [reverseProcedure "TCL is a Tool Command Language"]
 puts [reverseProcedure "Welcome to you"]

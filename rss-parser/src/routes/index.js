@@ -3,6 +3,6 @@ const rssParserRouter = require('./rss-parser.rout');
 
 const router = AsyncRouter();
 
-router.use('/rss_parser', rssParserRouter);
+router.use('/rss', rssParserRouter);
 
 module.exports = router;

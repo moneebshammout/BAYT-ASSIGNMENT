@@ -13,7 +13,9 @@ exports.rssCache = async (req, res, next) => {
   if (path === '/' && method === 'get') {
     const cached = await getCache(`rss_feed`);
     if (cached) {
-      return res.render('job-rss', { jobList: cached });
+      res.render('job-rss', { jobList: cached });
+      return res.end();
     }
-  } else return next();
+  }
+  return next();
 };

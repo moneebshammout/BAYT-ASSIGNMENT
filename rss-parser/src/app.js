@@ -22,7 +22,7 @@ app.use(router);
 app.use(
   '/',
   createProxyMiddleware({
-    target: `http://localhost:${PORT}/rss_parser`,
+    target: `http://localhost:${PORT}/rss`,
     changeOrigin: true,
     pathRewrite: {
       '^/': '',

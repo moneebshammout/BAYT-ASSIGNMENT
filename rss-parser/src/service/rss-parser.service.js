@@ -26,4 +26,5 @@ exports.getRssFeedTemplate = async (req, res) => {
   });
 
   res.render('job-rss', { jobList: response });
+  res.end();
 };
